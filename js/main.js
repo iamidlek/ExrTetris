@@ -97,9 +97,14 @@ function moveBlock(moveType, amount) {
   renderBlocks()
 }
 
+function changeDirection() {
+  const direction = tempMovingItem.direction
+  direction === 3 ? tempMovingItem.direction = 0 : tempMovingItem.direction += 1
+  renderBlocks()
+}
+
 // event handling
 document.addEventListener("keydown", e => {
-  console.log(e)
   switch(e.keyCode){
     case 39:
       moveBlock("left", 1)
