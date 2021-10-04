@@ -14,10 +14,10 @@ let downInterval
 let tempMovingItem
 
 const movingItem = {
-  type: "tree",
+  type: "",
   direction: 0,
   top: 0,
-  left: 3
+  left: 0
 }
 
 init ()
@@ -30,7 +30,7 @@ function init() {
   for(let i=0; i < gameRows; i++) {
     prependNewLine()
   }
-  renderBlocks()
+  generatedNewBlock()
 }
 
 function prependNewLine() {
@@ -87,6 +87,11 @@ function seizeBlock() {
 }
 
 function generatedNewBlock() {
+  clearInterval(downInterval)
+  downInterval = setInterval(() => {
+    moveBlock('top',1)
+  },duration)
+
   const blockArray = Object.entries(blocks)
   const randomIndex = Math.floor(Math.random() * blockArray.length)
   movingItem.type = blockArray[randomIndex][0]
