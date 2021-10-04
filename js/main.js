@@ -105,6 +105,8 @@ function checkMatch() {
     if (matched) {
       child.remove()
       prependNewLine()
+      score++
+      scoreDisplay.innerText = score
     }
   })  
   generatedNewBlock()
