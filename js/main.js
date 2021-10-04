@@ -12,7 +12,7 @@ let tempMovingItem
 
 const blocks = {
   tree: [
-    [[0,0],[0,1],[1,0],[1,1]],
+    [[2,1],[0,1],[1,0],[1,1]],
     [[],[],[],[]],
     [[],[],[],[]],
     [[],[],[],[]]
@@ -23,7 +23,7 @@ const movingItem = {
   type: "tree",
   direction: 0,
   top: 0,
-  left: 0
+  left: 3
 }
 
 init ()
@@ -52,11 +52,35 @@ function prependNewLine() {
 
 function renderBlocks() {
   const { type, direction, top, left } = tempMovingItem
-  
+  const movingBlocks = document.querySelectorAll(".moving")
+  movingBlocks.forEach(moving => {
+    moving.classList.remove(type, "moving")
+  })
   blocks[type][direction].forEach(block => {
-    const x = block[0]
-    const y = block[1]
-    const target = playground.childNodes[y].childNodes[0].childNodes[x]
-    target.classList.add(type)
+    const x = block[0] + left
+    const y = block[1] + top
+    const target = playground.childNodes[y] ? 
+    playground.childNodes[y].childNodes[0].childNodes[x] : null
+    target.classList.add(type, "moving")
   });
 }
+
+function moveBlock(moveType, amount) {
+  tempMovingItem[moveType] += amount
+  renderBlocks()
+}
+
+// event handling
+document.addEventListener("keydown", e => {
+  console.log(e)
+  switch(e.keyCode){
+    case 39:
+      moveBlock("left", 1)
+      break
+    case 37:
+      moveBlock("left", -1)
+      break
+    default:
+      break
+  }
+})
