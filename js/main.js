@@ -20,7 +20,7 @@ const blocks = {
 }
 
 const movingItem = {
-  type: "",
+  type: "tree",
   direction: 0,
   top: 0,
   left: 0
@@ -53,4 +53,10 @@ function prependNewLine() {
 function renderBlocks() {
   const { type, direction, top, left } = tempMovingItem
   
+  blocks[type][direction].forEach(block => {
+    const x = block[0]
+    const y = block[1]
+    const target = playground.childNodes[y].childNodes[0].childNodes[x]
+    target.classList.add(type)
+  });
 }
