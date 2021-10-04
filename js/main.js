@@ -50,13 +50,13 @@ function prependNewLine() {
   playground.prepend(li)
 }
 
-function renderBlocks() {
+function renderBlocks(moveType="") {
   const { type, direction, top, left } = tempMovingItem
   const movingBlocks = document.querySelectorAll(".moving")
   movingBlocks.forEach(moving => {
     moving.classList.remove(type, "moving")
   })
-  blocks[type][direction].forEach(block => {
+  blocks[type][direction].some(block => {
     const x = block[0] + left
     const y = block[1] + top
 
@@ -70,10 +70,12 @@ function renderBlocks() {
       tempMovingItem = {...movingItem}
       setTimeout(()=> {
         renderBlocks()
-        if (type === "top") {
+        if (moveType === "top") {
           seizeBlock()
         }
       },0)
+      // some을 끝내는 방법
+      return true
     }
   });
   movingItem.left = left
@@ -94,7 +96,7 @@ function checkEmpty(target) {
 
 function moveBlock(moveType, amount) {
   tempMovingItem[moveType] += amount
-  renderBlocks()
+  renderBlocks(moveType)
 }
 
 function changeDirection() {
