@@ -13,9 +13,9 @@ let tempMovingItem
 const blocks = {
   tree: [
     [[2,1],[0,1],[1,0],[1,1]],
-    [[],[],[],[]],
-    [[],[],[],[]],
-    [[],[],[],[]]
+    [[1,2],[0,1],[1,0],[1,1]],
+    [[1,2],[0,1],[2,1],[1,1]],
+    [[2,1],[1,2],[1,0],[1,1]]
   ]
 }
 
@@ -59,10 +59,37 @@ function renderBlocks() {
   blocks[type][direction].forEach(block => {
     const x = block[0] + left
     const y = block[1] + top
-    const target = playground.childNodes[y] ? 
-    playground.childNodes[y].childNodes[0].childNodes[x] : null
-    target.classList.add(type, "moving")
+
+    const target = playground.childNodes[y] ? playground.childNodes[y].childNodes[0].childNodes[x] : null
+
+    const isAvailable = checkEmpty(target)
+
+    if (isAvailable) {
+      target.classList.add(type, "moving")
+    } else {
+      tempMovingItem = {...movingItem}
+      setTimeout(()=> {
+        renderBlocks()
+        if (type === "top") {
+          seizeBlock()
+        }
+      },0)
+    }
   });
+  movingItem.left = left
+  movingItem.top = top
+  movingItem.direction = direction
+}
+
+function seizeBlock() {
+  console.log("나중에 만듬")
+}
+
+function checkEmpty(target) {
+  if(!target){
+    return false
+  }
+  return true
 }
 
 function moveBlock(moveType, amount) {
@@ -79,6 +106,12 @@ document.addEventListener("keydown", e => {
       break
     case 37:
       moveBlock("left", -1)
+      break
+    case 40:
+      moveBlock("top", 1)
+      break
+    case 38:
+      changeDirection()
       break
     default:
       break
