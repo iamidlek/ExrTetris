@@ -17,7 +17,6 @@ body {
   font-size: 36px;
   margin-bottom: 2rem;
 }
-
 .playground > ul {
   border: 1px solid #333;
   width: 250px;
@@ -37,4 +36,19 @@ body {
 }
 .tree {
   background: #67c23a;
+}
+.bar {
+  background: salmon;
+}
+.zee {
+  background: #e6a23c;
+}
+.elLeft {
+  background: #8e44ad;
+}
+.elRight {
+  background: #16a085;
+}
+.square {
+  background: slateblue;
 }
