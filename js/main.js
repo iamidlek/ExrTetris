@@ -120,6 +120,13 @@ function changeDirection() {
   renderBlocks()
 }
 
+function dropBlock() {
+  clearInterval(downInterval)
+  downInterval = setInterval(() => {
+    moveBlock("top",1)
+  },7)
+}
+
 // event handling
 document.addEventListener("keydown", e => {
   switch(e.keyCode){
@@ -129,11 +136,14 @@ document.addEventListener("keydown", e => {
     case 37:
       moveBlock("left", -1)
       break
-    case 40:
+    case 40:// 아래키
       moveBlock("top", 1)
       break
-    case 38:
+    case 38:// 위키
       changeDirection()
+      break
+    case 32:// 스페이스
+      dropBlock()
       break
     default:
       break
