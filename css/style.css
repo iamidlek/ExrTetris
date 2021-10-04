@@ -11,7 +11,29 @@ body {
   height: 100%;
   overflow: hidden;
 }
-
+.game-over {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.7);
+  top: 0;
+  left: 0;
+  color: #FFF;
+  font-size: 50px;
+}
+.game-over > button {
+  padding: 0.5rem 1rem;
+  color: #FFF;
+  background: #8e44ad;
+  border: none;
+  border-radius: 20%;
+  cursor: pointer;
+  margin-top: 2rem;
+}
 .score {
   text-align: center;
   font-size: 36px;
