@@ -84,11 +84,24 @@ function renderBlocks(moveType="") {
 }
 
 function seizeBlock() {
-  console.log("나중에 만듬")
+  const movingBlocks = document.querySelectorAll(".moving")
+  movingBlocks.forEach(moving => {
+    moving.classList.remove("moving")
+    moving.classList.add("seized")
+  })
+  generatedNewBlock()
+}
+
+function generatedNewBlock() {
+  movingItem.top = 0
+  movingItem.left = 3
+  movingItem.direction = 0
+  tempMovingItem = {...movingItem}
+  renderBlocks()
 }
 
 function checkEmpty(target) {
-  if(!target){
+  if(!target || target.classList.contains("seized")){
     return false
   }
   return true
