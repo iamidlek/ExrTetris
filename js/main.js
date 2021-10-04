@@ -2,6 +2,9 @@ import blocks from "./blocks.js"
 
 // Dom
 const playground = document.querySelector(".playground > ul")
+const gameOver = document.querySelector(".game-over")
+const reStartBtn = gameOver.querySelector("button")
+const scoreDisplay = document.querySelector(".score")
 
 // Setting
 const gameRows = 20
@@ -62,8 +65,12 @@ function renderBlocks(moveType="") {
       target.classList.add(type, "moving")
     } else {
       tempMovingItem = {...movingItem}
+      if (moveType === 'retry') {
+        clearInterval(downInterval)
+        showGameover()
+      }
       setTimeout(()=> {
-        renderBlocks()
+        renderBlocks('retry')
         if (moveType === "top") {
           seizeBlock()
         }
@@ -144,6 +151,10 @@ function dropBlock() {
   },7)
 }
 
+function showGameover() {
+  gameOver.style.display = "flex"
+}
+
 // event handling
 document.addEventListener("keydown", e => {
   switch(e.keyCode){
@@ -165,4 +176,10 @@ document.addEventListener("keydown", e => {
     default:
       break
   }
+})
+
+reStartBtn.addEventListener("click", () => {
+  playground.innerHTML = ""
+  gameOver.style.display = "none"
+  init()
 })
