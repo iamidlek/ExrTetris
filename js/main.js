@@ -7,7 +7,7 @@ const reStartBtn = gameOver.querySelector("button")
 const scoreDisplay = document.querySelector(".score")
 
 // Setting
-const gameRows = 20
+const gameRows = 23
 const gameCols = 10
 
 // variables
@@ -27,7 +27,9 @@ init ()
 
 // functions
 
+// 게임당 한번 처음에만 실행되는 함수
 function init() {
+  // 내용 없음 객체만 만들기
   tempMovingItem = {...movingItem}
 
   for(let i=0; i < gameRows; i++) {
@@ -36,11 +38,16 @@ function init() {
   generatedNewBlock()
 }
 
+// 맨 위의 줄에 한줄 생성
 function prependNewLine() {
+  // playground의 한 줄
   const li = document.createElement("li")
+  // 한칸의 틀
   const ul = document.createElement("ul")
+  // 한줄의 열 개수 만큼 생성
   for(let j=0; j < gameCols; j++) {
     const matrix = document.createElement("li")
+    // 한칸의 틀에 실제 칸
     ul.prepend(matrix)
   }
   li.prepend(ul)
@@ -112,15 +119,19 @@ function checkMatch() {
   generatedNewBlock()
 }
 
+// 블럭 생성
 function generatedNewBlock() {
+  // 기본 내려오는 속도
   clearInterval(downInterval)
   downInterval = setInterval(() => {
     moveBlock('top',1)
   },duration)
 
+  // key: val 을 배열로 전환 [tree , [4가지 모양]]
   const blockArray = Object.entries(blocks)
   const randomIndex = Math.floor(Math.random() * blockArray.length)
   movingItem.type = blockArray[randomIndex][0]
+  // 기본 위치 선정
   movingItem.top = 0
   movingItem.left = 3
   movingItem.direction = 0
@@ -146,6 +157,7 @@ function changeDirection() {
   renderBlocks()
 }
 
+// 스페이스를 누를 경우
 function dropBlock() {
   clearInterval(downInterval)
   downInterval = setInterval(() => {
